@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe 'Health endpoint', type: :request do 
   
   describe 'GET /health' do
-    before { get '/healt' }
+    before { get '/health' }
 
     #response tendra la respuesta , body = el cuerpo de la respuesta http
     it 'should return OK' do 
