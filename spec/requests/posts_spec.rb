@@ -3,33 +3,33 @@ require 'rails_helper'
 # prueba de integracion, para probar desde principio a fin, verifica todos los componentes ":request"
 RSpec.describe 'Posts', type: :request do 
   
-  describe 'GET /Posts' do
-    before { get '/post' }
+  describe 'GET /posts' do
+    before { get '/posts' }
 
     #response tendra la respuesta , body = el cuerpo de la respuesta http
     it 'should return OK' do 
       payload = JSON.parse(response.body)
-      expect(payload).to_not be_empty
+      expect(payload).to be_empty
       expect(response).to have_http_status(200)
     end
   end
 
   describe 'with data in the DB' do
-    before { get '/post' }
+    let!(:posts) {create_list(:post, 10, published: true)}
+    before { get '/posts' }
 
-    let(:posts) {create_list(:post, 10, published: true)}
-    it 'should return all the published posts' do 
+    it 'should return all the published posts' do   
       payload = JSON.parse(response.body)
       expect(payload.size).to eq(posts.size)
       expect(response).to have_http_status(200)
     end
   end
 
-  describe "GET /post/{id}" do
+  describe "GET /posts/{id}" do
     let(:post) { create(:post)}
     
     it 'should return a post' do 
-      get "/post/#{post.id}" 
+      get "/posts/#{post.id}" 
       payload = JSON.parse(response.body)
       expect(payload).to_not be_empty
       expect(payload['id']).to eq(post.id)
