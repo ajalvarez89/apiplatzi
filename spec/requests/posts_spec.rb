@@ -60,16 +60,16 @@ RSpec.describe 'Posts', type: :request do
     it 'should return error message on invalid POST post' do 
       req_payload = {
         post: {
-          content: 'content',
+          content: "content",
           published: false,
           user_id: user.id
        }
       }
-
+      #POST HTTP
       post '/posts', params: req_payload
       payload = JSON.parse(response.body)
       expect(payload).to_not be_empty
-      expect(payload['error']).to_not be_empty
+      expect(payload["error"]).to_not be_empty
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end 
@@ -77,14 +77,14 @@ RSpec.describe 'Posts', type: :request do
   # test PUT
   describe "PUT /posts/{id}" do 
     let!(:article) {create(:post)}
-    
+
     it 'should update a post' do 
       req_payload = {
         post: {
           title:'title',
           content: 'content',
-          published: true,
-       }
+          published: true
+        }
       }
 
       #PUT HTTP
@@ -100,7 +100,7 @@ RSpec.describe 'Posts', type: :request do
         post: {
           title: nil,
           content: nil,
-          published: false
+          published: false,
        }
       }
 
@@ -108,7 +108,7 @@ RSpec.describe 'Posts', type: :request do
       put "/posts/#{article.id}", params: req_payload
       payload = JSON.parse(response.body)
       expect(payload).to_not be_empty
-      expect(payload['error']).to eq(article.id)
+      expect(payload["error"]).to_not eq(article.id)
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end 

@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
-
-rescue_from Exception do |e|
   #log.error "#{e.message}" system for notifying erros
+rescue_from Exception do |e|
   render json: {error: e.message}, status: :internal_error
 end
 
