@@ -1,6 +1,6 @@
+
 class User < ApplicationRecord
   has_many :posts
-
   validates :email, presence: true
   validates :name, presence: true
   validates :auth_token, presence: true
@@ -11,8 +11,6 @@ class User < ApplicationRecord
     #User.new
     unless auth_token.present?
       self.auth_token = TokenGenerationService.generate
-    
     end
   end
-
 end
