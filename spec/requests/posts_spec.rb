@@ -13,7 +13,7 @@ RSpec.describe 'Posts', type: :request do
       expect(response).to have_http_status(200)
     end
   end
-
+#test
   describe 'with data in the DB' do
     let!(:posts) {create_list(:post, 10, published: true)}
     before { get '/posts' }
